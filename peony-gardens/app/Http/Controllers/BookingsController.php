@@ -31,7 +31,7 @@ class BookingsController extends Controller
             $room = Room::findOrFail($request->room_id);
 
             #reduce the available rooms if booked
-            if($room->availableRooms > 0){
+            if($room->available_rooms > 0){
                 $room->decrement('available_rooms');
 
                 //create the booking
@@ -40,7 +40,7 @@ class BookingsController extends Controller
                     'last_name'=> $request->last_name,
                     'room_id'=> $request->room_id,
                     'date_in'=> $request->date_in,
-                    'date_out'=> $request->date_out
+                    'date-out'=> $request->date_out
                 ]);
 
                 return response()->json([
@@ -50,6 +50,7 @@ class BookingsController extends Controller
 
             else{
                     return response()->json([
+
                         'error'=> 'No avilable rooms'
                     ],400);
                 }
@@ -62,7 +63,7 @@ class BookingsController extends Controller
         $booking->delete();
 
         return response()->json([
-            'message'=>'Room is niw avilable'
+            'message'=>'Room is now avilable'
         ], 201);
     }
     
